@@ -1,6 +1,10 @@
 const cacheName = 'orcamento-v1';
-const assets = ['./', './index.html'];
-
+const assets = [
+  './',
+  'index.html',
+  'manifest.json',
+  'icon.png'
+];
 self.addEventListener('install', e => {
   e.waitUntil(caches.open(cacheName).then(cache => cache.addAll(assets)));
 });
