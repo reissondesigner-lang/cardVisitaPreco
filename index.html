@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gerador de Orçamento Pro</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body { background-color: #f3f4f6; font-family: sans-serif; }
+        .card { background: white; border-radius: 16px; box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1); }
+        input, select, textarea { border: 1px solid #d1d5db !important; }
+        input:focus, select:focus { border-color: #2563eb !important; ring: 2px #2563eb; }
+    </style>
+</head>
+<body class="p-4 md:p-8">
+
+    <div class="max-w-2xl mx-auto card p-6 md:p-8">
+        <div class="flex items-center gap-3 mb-6 border-b pb-4">
+            <span class="text-3xl">📇</span>
+            <h1 class="text-2xl font-bold text-gray-800">Gerador de Orçamento</h1>
+        </div>
+        
+        <form id="orcamentoForm" class="grid grid-cols-1 gap-5">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                    <label class="block text-sm font-semibold text-gray-600 mb-1">Título do Projeto</label>
+                    <input type="text" id="titulo" placeholder="Ex: Moto Uber 24h" class="w-full p-2.5 rounded-lg outline-none">
+                </div>
+                <div>
+                    <label class="block text-sm font-semibold text-gray-600 mb-1">Nome do Cliente</label>
+                    <input type="text" id="cliente" placeholder="Quem está comprando?" class="w-full p-2.5 rounded-lg outline-none">
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                    <label class="block text-sm font-semibold text-gray-600 mb-1">WhatsApp (DDD + Número)</label>
+                    <input type="tel" id="whatsapp" placeholder="Ex: 11999999999" class="w-full p-2.5 rounded-lg outline-none">
+                </div>
+                <div>
+                    <label class="block text-sm font-semibold text-gray-600 mb-1">Instagram</label>
+                    <input type="text" id="instagram" placeholder="@seucliente" class="w-full p-2.5 rounded-lg outline-none">
+                </div>
+            </div>
+
+            <div>
+                <label class="block text-sm font-semibold text-gray-600 mb-1">Serviços Adicionais</label>
+                <textarea id="servicos" rows="2" placeholder="Ex: Verniz localizado, cantos arredondados..." class="w-full p-2.5 rounded-lg outline-none"></textarea>
+            </div>
+
+            <div class="bg-blue-50 p-4 rounded-xl grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div>
+                    <label class="block text-xs font-bold text-blue-700 uppercase mb-1">Quantidade</label>
+                    <select id="quantidade" onchange="atualizarPreco()" class="w-full p-2 rounded-md bg-white">
+                        <option value="50">50 unidades</option>
+                        <option value="100">100 unidades</option>
+                        <option value="250">250 unidades</option>
+                    </select>
+                </div>
+                <div>
+                    <label class="block text-xs font-bold text-blue-700 uppercase mb-1">Impressão</label>
+                    <select id="impressao" onchange="atualizarPreco()" class="w-full p-2 rounded-md bg-white">
+                        <option value="Frente">Só Frente</option>
+                        <option value="Frente e Verso">Frente e Verso</option>
+                    </select>
+                </div>
+                <div>
+                    <label class="block text-xs font-bold text-blue-700 uppercase mb-1">Valor Calculado</label>
+                    <input type="text" id="valorDisplay" readonly class="w-full p-2 rounded-md bg-gray-100 font-bold text-blue-800 border-none">
+                </div>
+            </div>
+
+            <div>
+                <label class="block text-sm font-semibold text-gray-600 mb-1">Chave PIX para Pagamento</label>
+                <input type="text" id="pix" placeholder="E-mail, CPF ou Celular" class="w-full p-2.5 rounded-lg outline-none">
+            </div>
+
+            <button type="button" onclick="gerarPrevia()" class="w-full bg-blue-600 text-white font-bold py-4 rounded-xl hover:bg-blue-700 shadow-lg transform active:scale-95 transition-all mt-2">
+                ✨ GERAR PRÉVIA DO ORÇAMENTO
+            </button>
+        </form>
+
+        <div id="areaPrevia" class="hidden mt-8 space-y-4">
+            <h2 class="text-lg font-bold text-gray-700 flex items-center gap-2">
+                <span class="w-2 h-6 bg-green-500 rounded-full"></span>
+                Prévia da Mensagem
+            </h2>
+            <div id="textoPrevia" class="p-5 bg-green-50 rounded-xl border border-green-200 text-gray-700 whitespace-pre-wrap font-mono text-sm leading-relaxed">
+            </div>
+            
+            <button onclick="enviarWhatsApp()" class="w-full bg-green-600 text-white font-bold py-4 rounded-xl hover:bg-green-700 shadow-lg flex items-center justify-center gap-3 transition-all">
+                <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981z"/></svg>
+                ENVIAR AGORA PARA WHATSAPP
+            </button>
+        </div>
+    </div>
+
+    <script>
+        const tabelaPrecos = {
+            "50": { "Frente": "R$ 30,00", "Frente e Verso": "R$ 38,00" },
+            "100": { "Frente": "R$ 55,00", "Frente e Verso": "R$ 67,00" },
+            "250": { "Frente": "R$ 90,00", "Frente e Verso": "R$ 105,00" }
+        };
+
+        function atualizarPreco() {
+            const qtd = document.getElementById('quantidade').value;
+            const imp = document.getElementById('impressao').value;
+            document.getElementById('valorDisplay').value = tabelaPrecos[qtd][imp];
+        }
+
+        // Inicializa o preço
+        atualizarPreco();
+
+        let mensagemFormatada = "";
+
+        function gerarPrevia() {
+            const campos = {
+                titulo: document.getElementById('titulo').value || "Não informado",
+                cliente: document.getElementById('cliente').value || "Não informado",
+                whatsapp: document.getElementById('whatsapp').value,
+                instagram: document.getElementById('instagram').value || "Não informado",
+                servicos: document.getElementById('servicos').value || "Nenhum adicional",
+                pix: document.getElementById('pix').value || "A definir",
+                quantidade: document.getElementById('quantidade').value,
+                impressao: document.getElementById('impressao').value,
+                valor: document.getElementById('valorDisplay').value
+            };
+
+            mensagemFormatada = `*RESUMO DO PEDIDO* \n\n` +
+                                `*Título:* ${campos.titulo}\n` +
+                                `*Cliente:* ${campos.cliente}\n` +
+                                `*WhatsApp:* ${campos.whatsapp}\n` +
+                                `*Instagram:* ${campos.instagram}\n` +
+                                `*Serviços:* ${campos.servicos}\n` +
+                                `*Quantidade:* ${campos.quantidade} unidades\n` +
+                                `*Impressão:* ${campos.impressao}\n` +
+                                `*Valor Total:* ${campos.valor}\n` +
+                                `*Chave PIX:* ${campos.pix}\n\n` +
+                                ` *BRINDES INCLUSOS:*\n` +
+                                `- Arte personalizada\n` +
+                                `- QR Code WhatsApp\n` +
+                                `- QR Code PIX\n\n`;
+
+            document.getElementById('textoPrevia').innerText = mensagemFormatada;
+            document.getElementById('areaPrevia').classList.remove('hidden');
+            window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+        }
+
+        function enviarWhatsApp() {
+            let fone = document.getElementById('whatsapp').value.replace(/\D/g, '');
+            if (!fone) {
+                alert("Por favor, insira o número do WhatsApp.");
+                return;
+            }
+            // Adiciona o código do país se o usuário não digitar
+            if (fone.length <= 11) fone = "55" + fone;
+            
+            const link = `https://api.whatsapp.com/send?phone=${fone}&text=${encodeURIComponent(mensagemFormatada)}`;
+            window.open(link, '_blank');
+        }
+    </script>
+  <script>
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('sw.js');
+  }
+</script>
+<link rel="manifest" href="manifest.json">
+</body>
+</html>
