@@ -1,0 +1,16 @@
+{
+  "name": "CardVisita Orçamento",
+  "short_name": "CardVisita",
+  "description": "Gerador de pedidos Cartão de visita",
+  "start_url": "index.html",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#2563eb",
+  "icons": [
+    {
+      "src": "https://cdn-icons-png.flaticon.com/512/1554/1554401.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
