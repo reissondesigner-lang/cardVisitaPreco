@@ -149,7 +149,7 @@
 
             document.getElementById('textoPrevia').innerText = mensagemFormatada;
             document.getElementById('areaPrevia').classList.remove('hidden');
-                navigator.clipboard.writeText(mensagemFormatada).then(() => {mostrarToast(); });
+            navigator.clipboard.writeText(mensagemFormatada).then(() => {mostrarToast("✅ Mensagem copiada");});
             window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
         }
 
@@ -158,9 +158,9 @@
     let fone = document.getElementById('whatsapp').value.replace(/\D/g, '');
 
     if (!fone) {
-        mostrarToastNumero();
-        return;
-    }
+    mostrarToast("⚠️ Digite o WhatsApp do cliente");
+    return;
+}
 
     if (fone.length <= 11) {
         fone = "55" + fone;
@@ -172,8 +172,13 @@
 
     window.location.href = link;
 }
-        function mostrarToast() {
+        function mostrarToast(texto = "Mensagem copiada") {
+
     const toast = document.getElementById("toast");
+    const toastTexto = document.getElementById("toastTexto");
+
+    toastTexto.innerText = texto;
+
     toast.classList.remove("opacity-0");
 
     setTimeout(() => {
@@ -192,7 +197,7 @@
   }
 </script>
     <div id="toast" class="fixed bottom-6 left-1/2 transform -translate-x-1/2 bg-black text-white px-5 py-3 rounded-lg shadow-lg opacity-0 transition-opacity duration-300">
-✅ Mensagem copiada
+<span id="toastTexto"></span>
 </div>
 </body>
 </html>
