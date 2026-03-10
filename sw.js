@@ -1,4 +1,4 @@
-const cacheName = 'orcamento-v1';
+const cacheName = 'orcamento-v2';
 const assets = [
   './',
   'index.html',
