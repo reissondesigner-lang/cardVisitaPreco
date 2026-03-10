@@ -113,6 +113,8 @@
             const imp = document.getElementById('impressao').value;
             document.getElementById('valorDisplay').value = tabelaPrecos[qtd][imp];
         }
+ document.getElementById('quantidade').value = "250";       // 250 unidades
+    document.getElementById('impressao').value = "Frente e Verso"; // Frente e Verso
 
         // Inicializa o preço
         atualizarPreco();
@@ -183,7 +185,7 @@
 
     setTimeout(() => {
         toast.classList.add("opacity-0");
-    }, 2000);
+    }, 3000);
 }
         function copiarMensagem() {
     navigator.clipboard.writeText(mensagemFormatada).then(() => {
