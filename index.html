@@ -46,7 +46,7 @@
             </div>
 
             <div>
-                <label class="block text-sm font-semibold text-gray-600 mb-1">Serviços e diferenciais</label>
+                <label class="block text-sm font-semibold text-gray-600 mb-1">Serviços e diferenciais / Obervações</label>
                 <textarea id="servicos" rows="2" placeholder="Ex: Viagens, entregas, Carretinha. 24h, viagens para outra cidade" class="w-full p-2.5 rounded-lg outline-none"></textarea>
             </div>
 
@@ -57,6 +57,10 @@
                         <option value="50">50 unidades</option>
                         <option value="100">100 unidades</option>
                         <option value="250">250 unidades</option>
+                        <option value="500">500 unidades</option>
+                        <option value="1000">1000 unidades</option>
+                        <option value="2000">2000 unidades</option>
+                        <option value="5000">5000 unidades</option>
                     </select>
                 </div>
                 <div>
@@ -95,7 +99,7 @@
                     📋 COPIAR MENSAGEM
                     </button>
             <button onclick="enviarWhatsApp()" class="w-full bg-green-600 text-white font-bold py-4 rounded-xl hover:bg-green-700 shadow-lg flex items-center justify-center gap-3 transition-all">
-                    ENVIAR WHATSAPP
+                    ENVIAR MSG
                         </button>
            </div>
         </div>
@@ -105,7 +109,11 @@
         const tabelaPrecos = {
             "50": { "Frente": "R$ 30,00", "Frente e Verso": "R$ 38,00" },
             "100": { "Frente": "R$ 55,00", "Frente e Verso": "R$ 67,00" },
-            "250": { "Frente": "R$ 90,00", "Frente e Verso": "R$ 105,00" }
+            "250": { "Frente": "R$ 90,00", "Frente e Verso": "R$ 105,00" },
+            "500": { "Frente": "R$ 140,00", "Frente e Verso": "R$ 165,00" },
+            "1000": { "Frente": "R$ 170,00", "Frente e Verso": "R$ 200,00" },
+            "2000": { "Frente": "R$ 300,00", "Frente e Verso": "R$ 350,00" },
+            "5000": { "Frente": "R$ 650,00", "Frente e Verso": "R$ 780,00" }
         };
 
         function atualizarPreco() {
